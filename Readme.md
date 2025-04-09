@@ -27,5 +27,7 @@ You will also need to install `gplk` following instructions here: https://www.gn
 
 I intend to continue work on this project in the near future. Next steps include:
 * Add documentation of objective function and constraints.
-* Create docker image to ease sharing.
+* Create docker image to ease sharing/deployment.
+* Better separation of concerns in files, initial weekly plan out of jupyter notebook.
+* Update input and output formats to be easier to use.
 * Add unit tests.
