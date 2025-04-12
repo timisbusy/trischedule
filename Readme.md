@@ -45,7 +45,7 @@ This model is subject to the following constraints:
 
 #### Constraint 1: There should be no more than 2 workouts per day.
 
-$$\forall 0 _lte d _lte 6 \sum_{w=0}^m SelectedWorkout[d, w] _lte 2$$
+$$\forall 0 \leq d \leq 6 \sum_{w=0}^m SelectedWorkout[d, w] \leq 2$$
 
 TODO: other constraints
  
