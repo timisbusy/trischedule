@@ -39,7 +39,7 @@ The objective of each week is to maximize the total fitness increase across the 
 
 With d = day of of week, w = workout identifier and m = total number of workouts, the following objective function is maximized:
 
-$\sum_{w=0}^m sum_{d=0}^6 FitnessIncrease[w]*SelectedWorkout[d, w]$
+$$\sum_{w=0}^m sum_{d=0}^6 FitnessIncrease[w]*SelectedWorkout[d, w]$$
  
 
 ## TODO List
