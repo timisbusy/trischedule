@@ -37,9 +37,9 @@ Second, each day in the weeks defined in Step 1 are assigned workouts for swim, 
 
 The objective of each week is to maximize the total fitness increase across the three sports during the week.
 
-With d = day of of week, and w = workout identifier, the following objective function is maximized:
+With d = day of of week, w = workout identifier and m = total number of workouts, the following objective function is maximized:
 
-$\sum_{\substack{0<w<m\0<d<n}} FitnessIncrease[w]*SelectedWorkout[d, w]$
+$\sum_{w=0}^m sum_{d=0}^6 FitnessIncrease[w]*SelectedWorkout[d, w]$
  
 
 ## TODO List
