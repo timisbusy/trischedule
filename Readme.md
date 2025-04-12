@@ -2,9 +2,9 @@
 
 ## Intro
 
-This is an experiment in using linear programming to create a triathlon training schedule. It is very much a work in progress and is the first time I am working with linear programming and the pyomo framework. My goal is to allow for a simple set of input parameters to generate a training schedule to prepare an athlete for a triathlon scheduled on a specified date. Training plans are inspired by The Triathlete's Training Bible (4th Edition) by Joe Friel.
+This is an experiment in using linear programming to create a triathlon training schedule. It is very much a work in progress and is the first time I am working with linear programming and the pyomo framework. My goal is to allow for a simple set of input parameters to generate a training schedule to prepare an athlete for a triathlon scheduled on a specified date. Training plans are inspired by [The Triathlete's Training Bible](https://www.amazon.com/Triathletes-Training-Bible-Worlds-Comprehensive/dp/1937715442) (4th Edition) by Joe Friel.
 
-NOTE: Please do not use this for training advice
+NOTE: Please do not use this for training advice. It is an experiment in software technique and has not been tested for use.
 
 ## Getting Started
 
@@ -23,7 +23,26 @@ jupyter notebook
 
 You will also need to install `gplk` following instructions here: https://www.gnu.org/software/glpk/
 
-## Next Steps
+## The Model
+
+This schedule creator uses a two step process. 
+
+### Step 1
+
+First, the start date and event date from the incoming configuration are used to establish the set of available weeks. These weeks are assigned a strategy and weeks starting new blocks are established following a [linear periodization](https://en.wikipedia.org/wiki/Sports_periodization) approach.
+
+### Step 2
+
+Second, each day in the weeks defined in Step 1 are assigned workouts for swim, bike, and run.
+
+The objective of each week is to maximize the total fitness increase across the three sports during the week.
+
+With d = day of of week, and w = workout identifier, the following objective function is maximized:
+
+$\sum_{\substack{0<w<m\0<d<n}} FitnessIncrease[w]*SelectedWorkout[d, w]$
+ 
+
+## TODO List
 
 I intend to continue work on this project in the near future. Next steps include:
 * Add documentation of objective function and constraints.
