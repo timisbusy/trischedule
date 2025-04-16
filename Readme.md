@@ -55,7 +55,7 @@ $$\forall \quad 0 \leq d \leq 6 \quad \sum_{w=0}^m SelectedWorkouts[d, w] \leq 2
 
 For each sport's workouts `w~s~` up to `m~s~`:
 
-$$\forall \quad 0 \leq d \leq 6 \quad \sum_{w_s=0}^m_s SelectedWorkouts[d, w_s] \leq 1$$
+$$\forall \quad 0 \leq d \leq 6 \quad \sum_{w{_s}=0}^m{_s} SelectedWorkouts[d, w{_s}] \leq 1$$
 
 TODO: other constraints
  
