@@ -35,17 +35,27 @@ First, the start date and event date from the incoming configuration are used to
 
 Second, each day in the weeks defined in Step 1 are assigned workouts for swim, bike, and run.
 
-The objective of each week is to maximize the total fitness increase across the three sports during the week.
+A variable `SelectedWorkouts` is defined with a binary value for each workout on each day. 1 means that the workout has been selected and 0 means that it has not. This is essentially a knapsack problem for each day, with constraints sometimes being applied to the day and other times across the week.
 
-With d = day of of week, w = workout identifier and m = total number of workouts, the following objective function is maximized:
+The two major factors in constraints and optimization are `fitness` and `fatigue`. Both of these parameters are assigned a value for each workout, whereby a workout increases both `fitness` and `fatigue`. Limits are placed around `fatigue` values, both on a daily basis and across the weeks. Both of these factors are passed forward between weeks.
 
-$$\sum_{w=0}^m \sum_{d=0}^6 FitnessIncrease[w]*SelectedWorkout[d, w]$$
+The objective of each week is to maximize the total `fitness` increase across the three sports during the week. Each week, the total `fitness` increase for each sport is calculated and added to a slighly depreciated value of the incoming `fitness` value for that sport. This is similar to an infinite impulse response paradigm.
+
+With `d` = day of of week, `w` = workout identifier and `m` = total number of workouts, the following objective function is maximized:
+
+$$\sum_{w=0}^m \sum_{d=0}^6 FitnessIncrease[w]*SelectedWorkouts[d, w]$$
 
 This model is subject to the following constraints:
 
 #### Constraint 1: There should be no more than 2 workouts per day.
 
-$$\forall \quad 0 \leq d \leq 6 \quad \sum_{w=0}^m SelectedWorkout[d, w] \leq 2$$
+$$\forall \quad 0 \leq d \leq 6 \quad \sum_{w=0}^m SelectedWorkouts[d, w] \leq 2$$
+
+#### Constraint 1a: There should be no more than 1 workout of each sport per day. 
+
+For each sport's workouts `w~s~` up to `m~s~`:
+
+$$\forall \quad 0 \leq d \leq 6 \quad \sum_{w_s=0}^m_s SelectedWorkouts[d, w_s] \leq 1$$
 
 TODO: other constraints
  
