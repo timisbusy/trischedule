@@ -41,7 +41,9 @@ The two major factors in constraints and optimization are `fitness` and `fatigue
 
 ---
 **Note**
+
 Fitness and fatigue measures are not based in any particular system. If this project evolves, it would be good to consider how excercise/sports science typically measures these features and benchmark to them.
+
 ---
 
 The objective of each week is to maximize the total `fitness` increase across the three sports during the week. Each week, the total `fitness` increase for each sport is calculated and added to a slighly depreciated value of the incoming `fitness` value for that sport. This is similar to an infinite impulse response paradigm.
@@ -80,8 +82,10 @@ TODO: document this constraint.
 
 ---
 **Note** 
+
 This could become infeasible if the incoming fitness levels at the start are already too far diverged.
 In this case, it would be good to ensure instead that the fitness levels are converging. This would bias workouts toward weaker sports.
+
 ---
 
 TODO: document this constraint.
