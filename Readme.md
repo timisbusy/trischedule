@@ -39,6 +39,11 @@ A variable `SelectedWorkouts` is defined with a binary value for each workout on
 
 The two major factors in constraints and optimization are `fitness` and `fatigue`. Both of these parameters are assigned a value for each workout, whereby a workout increases both `fitness` and `fatigue`. Limits are placed around `fatigue` values, both on a daily basis and across the weeks. Both of these factors are passed forward between weeks.
 
+---
+**Note**
+Fitness and fatigue measures are not based in any particular system. If this project evolves, it would be good to consider how excercise/sports science typically measures these features and benchmark to them.
+---
+
 The objective of each week is to maximize the total `fitness` increase across the three sports during the week. Each week, the total `fitness` increase for each sport is calculated and added to a slighly depreciated value of the incoming `fitness` value for that sport. This is similar to an infinite impulse response paradigm.
 
 With `d` = day of of week, `w` = workout identifier and `m` = total number of workouts, the following objective function is maximized:
@@ -59,11 +64,27 @@ $$\forall \quad 0 \leq d \leq 6 \quad \sum_{w{_s}=0}^{m{_s}} SelectedWorkouts[d,
 
 #### Constraint 2: Fatigue must remain below maximum for each sport.
 
-This constraint uses an approach similar to a finite impulse response to ensure that fatigue does not accumulate above a maximum level during the week. For each sport's workouts $`w_s`$ up to $`m_s`$ and each day of the week $`d`$:
+This constraint uses an approach similar to a finite impulse response to ensure that fatigue does not accumulate above a maximum level during the week. For each sport's workouts $`w_s`$ up to $`m_s`$ and each day of the week $`d`$ (Note rendering issue. TODO: debug this further):
 
 $$\forall \quad 0 \leq d \leq 6 \quad with \quad d_0 = max(0,d-5) \quad IncomingFatigue * max(0,(1 - (d * .25))) \quad + \quad  \sum_{w{_s}=0}^{m{_s}} \quad \sum_{d{_i} = d{_0}}^d \quad FatigueIncrease[w{_s}] * SelectedWorkouts[d{_i}, w{_s}]  \leq FatigueUpperBound$$
 
-TODO: other constraints
+#### Constraint 2a: Total fatigue across sports must remain below maximum.
+
+TODO: document this constraint
+
+#### Constraint 3: Must not exceed weekly maximum duration (training hours).
+
+TODO: document this constraint.
+
+#### Constraint 4: Fitness for sports should not diverge more than X
+
+---
+**Note** 
+This could become infeasible if the incoming fitness levels at the start are already too far diverged.
+In this case, it would be good to ensure instead that the fitness levels are converging. This would bias workouts toward weaker sports.
+---
+
+TODO: document this constraint.
  
 
 ## TODO List
