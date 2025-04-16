@@ -53,7 +53,7 @@ $$\forall \quad 0 \leq d \leq 6 \quad \sum_{w=0}^m SelectedWorkouts[d, w] \leq 2
 
 #### Constraint 1a: There should be no more than 1 workout of each sport per day. 
 
-For each sport's workouts `w~s~` up to `m~s~`:
+For each sport's workouts $w_s$ up to $m_s$:
 
 $$\forall \quad 0 \leq d \leq 6 \quad \sum_{w{_s}=0}^m{_s} SelectedWorkouts[d, w{_s}] \leq 1$$
 
