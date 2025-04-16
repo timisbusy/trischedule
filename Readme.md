@@ -61,7 +61,7 @@ $$\forall \quad 0 \leq d \leq 6 \quad \sum_{w{_s}=0}^{m{_s}} SelectedWorkouts[d,
 
 This constraint uses an approach similar to a finite impulse response to ensure that fatigue does not accumulate above a maximum level during the week. For each sport's workouts $w_s$ up to $m_s$ and each day of the week $d$:
 
-$$\forall \quad 0 \leq d \leq 6 \quad with \quad d_0 = max(0,d-5) \quad IncomingFatigue * max(0,(1 - (d * .25))) \quad + \quad  \sum_{w{_s}=0}^{m{_s}} \quad \sum_d=0 \quad FatigueIncrease[w{_s}] * SelectedWorkouts[d, w{_s}]  \leq FatigueUpperBound$$
+$$\forall \quad 0 \leq d \leq 6 \quad with \quad d_0 = max(0,d-5) \quad IncomingFatigue * max(0,(1 - (d * .25))) \quad + \quad  \sum_{w{_s}=0}^{m{_s}} \quad \sum_d^d \quad FatigueIncrease[w{_s}] * SelectedWorkouts[d, w{_s}]  \leq FatigueUpperBound$$
 
 TODO: other constraints
  
