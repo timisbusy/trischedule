@@ -189,6 +189,8 @@ def add_workouts_to_week_plan(week, incoming_fatigue, incoming_fitness, is_last_
 
     model.must_not_exceed_divergence_limit_constraint = pyo.Constraint(model.Sports, model.Sports, rule=must_not_exceed_divergence_limit_rule)
 
+    # constraint 5: must have variability in workouts
+
     def must_have_variability_in_workouts_rule(m,day,workout_id):
         if day == 0:
             return pyo.Constraint.Skip

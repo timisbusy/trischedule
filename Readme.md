@@ -66,19 +66,23 @@ $$\forall \quad 0 \leq d \leq 6 \quad \sum_{w{_s}=0}^{m{_s}} SelectedWorkouts[d,
 
 #### Constraint 2: Fatigue must remain below maximum for each sport.
 
-This constraint uses an approach similar to a finite impulse response to ensure that fatigue does not accumulate above a maximum level during the week. For each sport's workouts $`w_s`$ up to $`m_s`$ and each day of the week $`d`$ (Note rendering issue. TODO: debug this further):
+This constraint uses an approach similar to a finite impulse response to ensure that fatigue does not accumulate above a maximum level during the week. For each sport's workouts $`w_s`$ up to $`m_s`$ and each day of the week $`d`$ (Note rendering issue on constraint 2 and 2a. TODO: debug this further - rendering works in https://latexeditor.lagrida.com/):
 
-$$\forall \quad 0 \leq d \leq 6 \quad with \quad d_0 = max(0,d-5) \quad IncomingFatigue * max(0,(1 - (d * .25))) \quad + \quad  \sum_{w{_s}=0}^{m{_s}} \quad \sum_{d{_i} = d{_0}}^d \quad FatigueIncrease[w{_s}] * SelectedWorkouts[d{_i}, w{_s}]  \leq FatigueUpperBound$$
+$$\forall \quad 0 \leq d \leq 6 \quad with \quad d_0 = max(0,d-5) \quad IncomingFatigue_s * max(0,(1 - (d * .25))) \quad + \quad  \sum_{w{_s}=0}^{m{_s}} \quad \sum_{d{_i} = d{_0}}^d \quad FatigueIncrease[w{_s}] * SelectedWorkouts[d{_i}, w{_s}]  \leq FatigueUpperBound$$
 
 #### Constraint 2a: Total fatigue across sports must remain below maximum.
 
-TODO: document this constraint
+This constraint is similar to constraint 2 but enforces a maximum fatigue level across the three sports. Note that `TotalFatigueUpperBound` is a higher value than `FatigueUpperBound`. A combination of sports can add up to more fatigue, but enforces a limit for what is, after all, a single athlete.
+
+$$\forall \quad 0 \leq d \leq 6 \quad with \quad d_0 = max(0,d-5) \quad \sum_{s=0}^2 IncomingFatigue_s * max(0,(1 - (d * .25))) \quad + \quad  \sum_{w=0}^m \quad \sum_{d{_i} = d{_0}}^d \quad FatigueIncrease[w] * SelectedWorkouts[d{_i}, w]  \leq TotalFatigueUpperBound$$
 
 #### Constraint 3: Must not exceed weekly maximum duration (training hours).
 
-TODO: document this constraint.
+Training hours are user configurable, and the duration of weekly workouts should not exceed this limit. Workout durations are set in minutes, so we need to convert `WeeklyTrainingHoursLimit` to minutes
 
-#### Constraint 4: Fitness for sports should not diverge more than X
+$$\sum_{d=0}^6 \sum_{w=0}^m WorkoutDuration[w] * SelectedWorkouts[d, w] \leq WeeklyTrainingHoursLimit * 60$$
+
+#### Constraint 4: Fitness for sports should not diverge more than a configured amount.
 
 ---
 **Note** 
@@ -88,8 +92,13 @@ In this case, it would be good to ensure instead that the fitness levels are con
 
 ---
 
-TODO: document this constraint.
+This constraint compares two sports $`s_a`$ and $`s_b`$ for all combination of sports and ensures that the difference in fitness level at the end of the week does not exceed a set value. This approach ensures that the difference is in the range of `MaxDivergence` by exploiting the fact that $MaxDivergence + value \leq MaxDivergence * 2$, when enforced from both directions will act equivalently to $|value| \leq MaxDivergence$
+
+$$MaxDivergence + ( IncomingFatigue[s_a]*FeedbackCoef + \sum_{d=0}^6 \sum_{w_{s_a}=0}^{m_{s_a}} SelectedWorkouts[d,{w_{s_a}}]*FitnessIncrease[{w_{s_a}}]*FitnessMultiplier) - (IncomingFatigue[s_b]*FeedbackCoef + \sum_{d=0}^6 \sum_{w_{s_b}=0}^{m_{s_b}} SelectedWorkouts[d,{w_{s_b}}]*FitnessIncrease[{w_{s_b}}]*FitnessMultiplier) \leq  MaxDivergence * 2 $$
+
+#### Constraint 5: Must have variety in workouts - space out selection of the same workout
  
+TODO: document this constraint.
 
 ## TODO List
 
