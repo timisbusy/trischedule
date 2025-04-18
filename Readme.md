@@ -96,9 +96,13 @@ This constraint compares two sports $`s_a`$ and $`s_b`$ for all combination of s
 
 $$MaxDivergence + ( IncomingFatigue[s_a]*FeedbackCoef + \sum_{d=0}^6 \sum_{w_{s_a}=0}^{m_{s_a}} SelectedWorkouts[d,{w_{s_a}}]*FitnessIncrease[{w_{s_a}}]*FitnessMultiplier) - (IncomingFatigue[s_b]*FeedbackCoef + \sum_{d=0}^6 \sum_{w_{s_b}=0}^{m_{s_b}} SelectedWorkouts[d,{w_{s_b}}]*FitnessIncrease[{w_{s_b}}]*FitnessMultiplier) \leq  MaxDivergence * 2 $$
 
-#### Constraint 5: Must have variety in workouts - space out selection of the same workout
+#### Constraint 5: Must have variety in workouts - space out selection of the same workout.
  
-TODO: document this constraint.
+This constraint ensures that the same workout is not selected more than once every three days. This parameter could be configurable, but at this point it's hardcoded.
+
+$$\forall \quad 1 \leq d \leq 6  \quad\forall \quad 0 \leq w \leq m  \quad with \quad d_0 = max(0,d-3) \quad \sum_{d{_i}=d{_0}}^d \sum_{w=0}^m SelectedWorkouts[d_i,w] \leq 1$$
+
+
 
 ## TODO List
 
