@@ -98,7 +98,7 @@ $$MaxDivergence + ( IncomingFatigue[s_a]*FeedbackCoef + \sum_{d=0}^6 \sum_{w_{s_
 
 #### Constraint 5: Must have variety in workouts - space out selection of the same workout.
  
-This constraint ensures that the same workout is not selected more than once every three days. This parameter could be configurable, but at this point it's hardcoded.
+This constraint ensures that the same workout is not selected more than once every three days. This parameter could be configurable, but at this point it's hardcoded. (Note rendering issue on constraint 5. TODO: debug this further - rendering works in https://latexeditor.lagrida.com/)
 
 $$\forall \quad 1 \leq d \leq 6  \quad\forall \quad 0 \leq w \leq m  \quad with \quad d_0 = max(0,d-3) \quad \sum_{d{_i}=d{_0}}^d \sum_{w=0}^m SelectedWorkouts[d_i,w] \leq 1$$
 
